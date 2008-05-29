@@ -1,0 +1,27 @@
+This is Perl module MooseX::Plaggerize.
+
+INSTALLATION
+
+MooseX::Plaggerize installation is straightforward. If your CPAN shell is set up,
+you should just be able to do
+
+    % cpan MooseX::Plaggerize
+
+Download it, unpack it, then build it as per the usual:
+
+    % perl Makefile.PL
+    % make && make test
+
+Then install it:
+
+    % make install
+
+DOCUMENTATION
+
+MooseX::Plaggerize documentation is available as in POD. So you can do:
+
+    % perldoc MooseX::Plaggerize
+
+to read the documentation online with your favorite pager.
+
+Tokuhiro Matsuno
