@@ -1,0 +1,6 @@
+---
+plugins:
+  - Plugin1
+  - module: Plugin2
+    config:
+      foo: baz
