@@ -27,3 +27,19 @@ sub normalize {
 }
 
 1;
+__END__
+
+=head1 NAME
+
+MooseX::Plaggerize::ConfigLoader - configuration file loader
+
+=head1 SYNOPSIS
+
+    package Your::Context;
+    use Moose;
+    with 'MooseX::Plaggerize', 'MooseX::Plaggerize::ConfigLoader';
+
+=head1 DESCRIPTION
+
+load plugins from config.yaml or hashref.
+

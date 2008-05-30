@@ -90,10 +90,13 @@ MooseX::Plaggerize - plagger like plugin feature for Moose
         my ($self, $context, $args) = @_;
     };
 
+=head1 WARNING!! WARNING!!
+
+THIS MODULE IS IN ITS BETA QUALITY.API MAY CHANGE IN THE FUTURE.
 
 =head1 DESCRIPTION
 
-MooseX::Plaggerize is
+MooseX::Plaggerize is Plagger like plugin system for Moose.
 
 =head1 TODO
 
