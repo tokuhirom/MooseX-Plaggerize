@@ -5,7 +5,16 @@ use YAML;
 
 sub load_config {
     my ($self, $stuff) = @_;
-    my $config = normalize($stuff);
+    my $config = do {
+        if (ref $stuff) {
+            return $stuff;
+        } else {
+            open my $fh, '<:utf8', $stuff or die "$!: $stuff";
+            $stuff = YAML::LoadFile($fh);
+            close $fh;
+            return $stuff;
+        }
+    };
 
     for my $plugin (@{ $config->{plugins} || [] }) {
         $self->load_plugin($plugin);
@@ -14,20 +23,10 @@ sub load_config {
     return $config;
 }
 
-sub normalize {
-    my $stuff = shift;
-    if (ref $stuff) {
-        return $stuff;
-    } else {
-        open my $fh, '<:utf8', $stuff or die "$!: $stuff";
-        $stuff = YAML::LoadFile($fh);
-        close $fh;
-        return $stuff;
-    }
-}
-
 1;
 __END__
+
+=for stopwords plugins config.yaml
 
 =head1 NAME
 
@@ -43,3 +42,6 @@ MooseX::Plaggerize::ConfigLoader - configuration file loader
 
 load plugins from config.yaml or hashref.
 
+=head1 SEE ALSO
+
+L<Moose>, L<MooseX::Plaggerize>

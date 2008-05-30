@@ -56,7 +56,7 @@ sub run_hook {
 1;
 __END__
 
-=for stopwords plagger
+=for stopwords plagger API
 
 =encoding utf8
 
@@ -92,7 +92,7 @@ MooseX::Plaggerize - plagger like plugin feature for Moose
 
 =head1 WARNING!! WARNING!!
 
-THIS MODULE IS IN ITS BETA QUALITY.API MAY CHANGE IN THE FUTURE.
+THIS MODULE IS IN ITS BETA QUALITY. API MAY CHANGE IN THE FUTURE.
 
 =head1 DESCRIPTION
 
