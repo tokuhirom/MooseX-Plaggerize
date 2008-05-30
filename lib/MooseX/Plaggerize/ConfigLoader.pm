@@ -7,12 +7,12 @@ sub load_config {
     my ($self, $stuff) = @_;
     my $config = do {
         if (ref $stuff) {
-            return $stuff;
+            $stuff;
         } else {
             open my $fh, '<:utf8', $stuff or die "$!: $stuff";
             $stuff = YAML::LoadFile($fh);
             close $fh;
-            return $stuff;
+            $stuff;
         }
     };
 
