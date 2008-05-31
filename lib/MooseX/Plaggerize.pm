@@ -6,7 +6,7 @@ our $VERSION = '0.02';
 use Scalar::Util qw/blessed/;
 use Carp;
 
-has moosex_plaggerize_hooks => (
+has __moosex_plaggerize_hooks => (
     is      => 'ro',
     isa     => 'HashRef',
     default => sub { {} },
@@ -32,9 +32,9 @@ sub resolve_plugin {
 sub register_hook {
     my ($self, @hooks) = @_;
     while (my ($hook, $plugin, $code) = splice @hooks, 0, 3) {
-        $self->moosex_plaggerize_hooks->{$hook} ||= [];
+        $self->__moosex_plaggerize_hooks->{$hook} ||= [];
 
-        push @{ $self->moosex_plaggerize_hooks->{$hook} }, +{
+        push @{ $self->__moosex_plaggerize_hooks->{$hook} }, +{
             plugin => $plugin,
             code   => $code,
         };
@@ -43,7 +43,7 @@ sub register_hook {
 
 sub run_hook {
     my ($self, $hook, @args) = @_;
-    return unless my $hooks = $self->moosex_plaggerize_hooks->{$hook};
+    return unless my $hooks = $self->__moosex_plaggerize_hooks->{$hook};
     my @ret;
     for my $hook (@$hooks) {
         my ($code, $plugin) = ($hook->{code}, $hook->{plugin});

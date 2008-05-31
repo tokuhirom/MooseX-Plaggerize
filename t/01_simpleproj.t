@@ -4,7 +4,7 @@ use Test::More tests => 7;
 use_ok 't::SimpleProj';
 
 can_ok 't::SimpleProj', qw(
-    moosex_plaggerize_hooks
+    __moosex_plaggerize_hooks
     load_plugin
     register_hook
     run_hook
