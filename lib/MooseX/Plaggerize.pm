@@ -18,8 +18,7 @@ sub load_plugin {
     my $module = $args->{module};
        $module = $self->resolve_plugin($module);
     Class::MOP::load_class($module);
-    my $plugin = $module->new();
-    $plugin->config($args->{config}) if defined $args->{config};
+    my $plugin = $module->new($args->{config} || {});
     $plugin->register( $self );
 }
 
@@ -53,6 +52,30 @@ sub run_hook {
     \@ret;
 }
 
+sub run_hook_first {
+    my ( $self, $point, @args ) = @_;
+    for my $hook ( @{ $self->__moosex_plaggerize_hooks->{$point} } ) {
+        if ( my $res = $hook->{code}->( $hook->{plugin}, @args ) ) {
+            return $res;
+        }
+    }
+    return;
+}
+
+sub run_hook_filter {
+    my ( $self, $point, @args ) = @_;
+    for my $hook ( @{ $self->__moosex_plaggerize_hooks->{$point} } ) {
+        @args = $hook->{code}->( $hook->{plugin}, @args );
+    }
+    return @args;
+}
+
+
+sub get_hook {
+    my ($self, $hook) = @_;
+    return $self->__moosex_plaggerize_hooks->{$hook};
+}
+
 1;
 __END__
 
@@ -82,9 +105,15 @@ MooseX::Plaggerize - plagger like plugin feature for Moose
         $self->run_hook('response_filter' => $args);
     }
 
-    package Your::Plugin::HTMLFilter::StickyTime;
+    package Your::Plugin::HTMLFilter::DocRoot;
     use strict;
     use MooseX::Plaggerize::Plugin;
+
+    has root => (
+        is       => 'ro',
+        isa      => 'Str',
+        required => 1,
+    );
 
     hook 'response_filter' => sub {
         my ($self, $context, $args) = @_;
