@@ -1,20 +1,9 @@
-package MooseX::Plaggerize::ConfigLoader;
+package MooseX::Plaggerize::PluginLoader;
 use strict;
 use Moose::Role;
-use YAML;
 
-sub load_config {
-    my ($self, $stuff) = @_;
-    my $config = do {
-        if (ref $stuff) {
-            $stuff;
-        } else {
-            open my $fh, '<:utf8', $stuff or die "$!: $stuff";
-            $stuff = YAML::LoadFile($fh);
-            close $fh;
-            $stuff;
-        }
-    };
+sub load_plugins_from_config {
+    my ($self, $config) = @_;
 
     for my $plugin (@{ $config->{plugins} || [] }) {
         $self->load_plugin($plugin);
@@ -26,7 +15,7 @@ sub load_config {
 1;
 __END__
 
-=for stopwords plugins config.yaml
+=for stopwords plugins config.yaml plagger
 
 =head1 NAME
 
@@ -37,6 +26,16 @@ MooseX::Plaggerize::ConfigLoader - configuration file loader
     package Your::Context;
     use Moose;
     with 'MooseX::Plaggerize', 'MooseX::Plaggerize::ConfigLoader';
+
+=head1 PROVIDE METHOD
+
+=over 4
+
+=item $self->load_plugins_from_config($conf)
+
+load plugins from plagger style configuration stuff.
+
+=back
 
 =head1 DESCRIPTION
 
