@@ -54,8 +54,10 @@ sub run_hook {
 
 sub run_hook_first {
     my ( $self, $point, @args ) = @_;
+    croak 'missing hook point' unless $point;
+
     for my $hook ( @{ $self->__moosex_plaggerize_hooks->{$point} } ) {
-        if ( my $res = $hook->{code}->( $hook->{plugin}, @args ) ) {
+        if ( my $res = $hook->{code}->( $hook->{plugin}, $self, @args ) ) {
             return $res;
         }
     }
@@ -65,7 +67,7 @@ sub run_hook_first {
 sub run_hook_filter {
     my ( $self, $point, @args ) = @_;
     for my $hook ( @{ $self->__moosex_plaggerize_hooks->{$point} } ) {
-        @args = $hook->{code}->( $hook->{plugin}, @args );
+        @args = $hook->{code}->( $hook->{plugin}, $self, @args );
     }
     return @args;
 }
@@ -126,6 +128,61 @@ THIS MODULE IS IN ITS BETA QUALITY. API MAY CHANGE IN THE FUTURE.
 =head1 DESCRIPTION
 
 MooseX::Plaggerize is Plagger like plugin system for Moose.
+
+MooseX::Plaggerize is a Moose::Role.You can use this module with 'with'.
+
+=head1 METHOD
+
+=over 4
+
+=item $self->load_plugin({ module => $module, config => $conf)
+
+if you write:
+
+    my $app = MyApp->new;
+    $app->load_plugin({ module => 'Foo', config => {hoge => 'fuga'})
+
+above code executes follow code:
+
+    my $app = MyApp->new;
+    my $plugin = MyApp::Plugin::Foo->new({hoge => 'fuga'});
+    $plugin->register( $app );
+
+=item $self->register_hook('hook point', $plugin, $code)
+
+register code to hook point.$plugin is instance of plugin.
+
+=item $self->run_hook('finalize', $c)
+
+run hook.
+
+use case: mostly ;-)
+
+=item $self->run_hook_first('hook point', @args)
+
+run hook.
+
+if your hook code returns true value, stop the hook loop(this feature likes OK/DECLINED of mod_perl handler).
+
+(please look source code :)
+
+use case: handler like mod_perl
+
+=item $self->run_hook_filter('hook point', @args)
+
+run hook.
+
+(please look source code :)
+
+use case: html filter
+
+=item $self->get_hook('hook point')
+
+get the codes.
+
+use case: write tricky code :-(
+
+=back
 
 =head1 TODO
 
