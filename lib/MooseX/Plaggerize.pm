@@ -2,7 +2,7 @@ package MooseX::Plaggerize;
 use strict;
 use Moose::Role;
 use 5.00800;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 use Scalar::Util qw/blessed/;
 use Carp;
 

@@ -2,8 +2,8 @@ use inc::Module::Install;
 name 'MooseX-Plaggerize';
 all_from 'lib/MooseX/Plaggerize.pm';
 
-requires 'Moose' => '0.46';
-requires 'Scalar::Util';
+requires 'Moose'        => '0.48';
+requires 'Scalar::Util' => '1.19';
 
 tests 't/*.t t/*/*.t t/*/*/*.t';
 build_requires 'Test::More';
