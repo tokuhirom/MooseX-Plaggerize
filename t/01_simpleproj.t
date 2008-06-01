@@ -23,6 +23,8 @@ do {
 };
 
 do {
+    no warnings 'once';
+
     $c->load_plugin({module => 'Plugin2', config => {foo => 'bar'}});
     $c->run_hook('test2', 'argument');
     isa_ok $t::SimpleProj::Plugin::Plugin2::CONTEXT, 't::SimpleProj';
