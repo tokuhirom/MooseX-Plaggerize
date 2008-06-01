@@ -47,13 +47,6 @@ use Carp;
         Moose::init_meta($CALLER);
         Moose->import( { into => $CALLER } );
 
-        $CALLER->meta->add_attribute(
-            config => (
-                is       => 'rw',
-                isa      => 'HashRef',
-            ),
-        );
-
         goto $exporter;
     }
 }
