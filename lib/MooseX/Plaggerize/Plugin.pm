@@ -70,4 +70,31 @@ MooseX::Plaggerize::Plugin - plugin
     package Your::Plugin::Foo;
     use MooseX::Plaggerize::Plugin;
 
+=head1 DESCRIPTION
+
+plugin class for MooseX:Plaggerize.
+
+=head1 METHODS
+
+=over 4
+
+=item register
+
+    $self->register( $c );
+
+internal use only
+
+=item hook
+
+    hook 'hook point' => sub {
+        # do something
+    };
+
+add coderef to hook point.
+
+=back
+
+=head1 SEE ALSO
+
+L<MooseX::Plaggerize>
 
