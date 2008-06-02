@@ -93,14 +93,13 @@ MooseX::Plaggerize - plagger like plugin feature for Moose
 
     # in main
     my $c = Your::Context->new;
-    $c->load_config('config.yaml'); # feature of MooseX::Plaggerize::ConfigLoader
     $c->load_plugin('HTMLFilter::StickyTime');
     $c->load_plugin({module => 'HTMLFilter::DocRoot', config => { root => '/mobirc/' }});
     $c->run();
 
     package Your::Context;
     use Moose;
-    with 'MooseX::Plaggerize', 'MooseX::Plaggerize::ConfigLoader';
+    with 'MooseX::Plaggerize';
 
     sub run {
         my $self = shift;
