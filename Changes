@@ -1,5 +1,9 @@
 Revision history for Perl extension MooseX::Plaggerize
 
+0.04
+
+    - fixed documentation bug.
+
 0.03
 
     - added run_hook_first, run_hook_filter, get_hook.
