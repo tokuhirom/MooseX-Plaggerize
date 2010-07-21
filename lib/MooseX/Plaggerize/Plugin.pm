@@ -44,7 +44,7 @@ use Carp;
 
         return if $CALLER eq 'main';
 
-        Moose::init_meta($CALLER);
+        Moose->init_meta(for_class => $CALLER);
         Moose->import( { into => $CALLER } );
 
         goto $exporter;
