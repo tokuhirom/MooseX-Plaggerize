@@ -1,5 +1,10 @@
 Revision history for Perl extension MooseX::Plaggerize
 
+0.05
+
+    - Moose's ->construct_instance will deprecate.
+      use ->new_object.
+
 0.04
 
     - fixed documentation bug.
