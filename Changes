@@ -1,5 +1,10 @@
 Revision history for Perl extension MooseX::Plaggerize
 
+0.06
+
+    - avoid warnings for Moose 1.09
+    - modernize dist for 2010
+
 0.05
 
     - Moose's ->construct_instance will deprecate.
